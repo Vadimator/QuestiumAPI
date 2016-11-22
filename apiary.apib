@@ -1,80 +1,186 @@
 FORMAT: 1A
-HOST: http://polls.apiblueprint.org/
+HOST: http://petrashenko.questium.local.samsonos.com/
 
-# Questium
+# Questium API
+[Questium](http://questium.com.ua) API documentation. All methods should receive regular POST oarameters.
 
-Polls is a simple API allowing consumers to view polls and vote in them.
+## Show rooms collection [/api/showrooms/]
 
-## Questions Collection [/questions]
+### Fetch all rooms [POST]
 
-### List All Questions [GET]
+
++ Attributes
+
+    + url: questium (string, required) 
+    
+
++ Request (application/x-www-form-urlencoded)
+    
+        url=questium
 
 + Response 200 (application/json)
-
-        [
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 2048
-                    }, {
-                        "choice": "Python",
-                        "votes": 1024
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 512
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 256
-                    }
-                ]
-            }
-        ]
-
-### Create a New Question [POST]
-
-You may create your own question using this action. It takes a JSON
-object containing a question and a collection of answers in the
-form of choices.
-
-+ Request (application/json)
-
-        {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
-            ]
-        }
-
-+ Response 201 (application/json)
-
-    + Headers
-
-            Location: /questions/2
-
+    
     + Body
-
+    
             {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 0
-                    }
-                ]
+                "rooms": [
+                   
+                        "Вечера на хуторе",
+                        "Гавайская вечеринка",
+                        "Ядерная угроза",
+                        "1408"
+                ],
+                "result": 2
+            }
+            
+            
+## Show rooms collection [/api/showinfo/]
+
+### Show room info request [POST]
+
+
++ Attributes
+
+    + url: questium (string, required) 
+    + room: gavajskaja-vecherinka (string, required)
+    
+
++ Request (application/x-www-form-urlencoded)
+    
+        url=questium&room=gavajskaja-vecherinka
+
++ Response 200 (application/json)
+    
+    + Body
+    
+            {
+                "rooms": [
+                   
+                        "Вечера на хуторе",
+                        "Гавайская вечеринка",
+                        "Ядерная угроза",
+                        "1408"
+                ],
+                "result": 2
+            }
+            
+## Show rooms collection [/api/showday/]
+
+### Show day request [POST]
+
+
++ Attributes
+
+    + url: questium (string, required) 
+    + room: gavajskaja-vecherinka (string, required)
+    + date: 2016-11-15 (string, required)
+
++ Request (application/x-www-form-urlencoded)
+    
+        url=questium&room=gavajskaja-vecherinka&date=2016-11-15
+
++ Response 200 (application/json)
+    
+    + Body
+    
+            {
+                "rooms": [
+                   
+                        "Вечера на хуторе",
+                        "Гавайская вечеринка",
+                        "Ядерная угроза",
+                        "1408"
+                ],
+                "result": 2
+            }            
+
+## Show rooms collection [/api/showhour/]
+
+### Show room hour request [POST]
+
+
++ Attributes
+
+    + url: questium (string, required) 
+    + room: gavajskaja-vecherinka (string, required)
+    + date: 2016-11-15 (string, required)
+    + time: 15:00 (string, required)
+
++ Request (application/x-www-form-urlencoded)
+    
+        url=questium&room=gavajskaja-vecherinka&date=2016-11-15&time=15:00
+
++ Response 200 (application/json)
+    
+    + Body
+    
+            {
+                "rooms": [
+                   
+                        "Вечера на хуторе",
+                        "Гавайская вечеринка",
+                        "Ядерная угроза",
+                        "1408"
+                ],
+                "result": 2
+            }            
+            
+## Show rooms collection [/api/showbooking/]
+
+### Show room booking request [POST]
+
+
++ Attributes
+
+    + url: questium (string, required) 
+    + room: gavajskaja-vecherinka (string, required)
+
++ Request (application/x-www-form-urlencoded)
+    
+        url=questium&room=gavajskaja-vecherinka
+
++ Response 200 (application/json)
+    
+    + Body
+    
+            {
+                "rooms": [
+                   
+                        "Вечера на хуторе",
+                        "Гавайская вечеринка",
+                        "Ядерная угроза",
+                        "1408"
+                ],
+                "result": 2
+            } 
+            
+## Show rooms collection [/api/bookinghour/]
+
+### Create booking request [POST]
+
+
++ Attributes
+
+    + url: questium (string, required) 
+    + room: gavajskaja-vecherinka (string, required)
+    + date: 2016-11-15 (string, required)
+    + time: 15:00 (string, required)
+
++ Request (application/x-www-form-urlencoded)
+    
+        url=questium&room=gavajskaja-vecherinka&date=2016-11-15&time=15:00
+
++ Response 200 (application/json)
+    
+    + Body
+    
+            {
+                "rooms": [
+                   
+                        "Вечера на хуторе",
+                        "Гавайская вечеринка",
+                        "Ядерная угроза",
+                        "1408"
+                ],
+                "result": 2
             }
