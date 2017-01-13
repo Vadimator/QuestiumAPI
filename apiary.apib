@@ -1,186 +1,561 @@
 FORMAT: 1A
-HOST: http://petrashenko.questium.local.samsonos.com/
+HOST: http://questium.com.ua/
 
 # Questium API
-[Questium](http://questium.com.ua) API documentation. All methods should receive regular POST oarameters.
+[Questium](http://questium.com.ua) QUESTIUM API v1.0.0. Это API дает возможность просмотра расписания и бронирования времени посредством интерфейса QUESTIUM.
 
-## Show rooms collection [/api/showrooms/]
+## Бронировка комнаты на сайте questium [/api/bookinghour/]
 
-### Fetch all rooms [POST]
+### Booking room [POST]
 
 
 + Attributes
 
-    + url: questium (string, required) 
-    
+    + url: zigraymo (string, required) 
+    + room: palata-6 (string, required)
+    + date: 19-01-2017 (string, required)
+    + time: 11:10 (string, required)
+    + price: 500 (number, required)
+    + phone: 38XXXYYYYYYY (string, required)
+    + comment: test (string, required)
 
 + Request (application/x-www-form-urlencoded)
     
-        url=questium
+        url=zigraymo&room=palata-6&date=19-01-2017&time=11:10&phone=38XXXYYYYYYY&comment=test&price=500
 
 + Response 200 (application/json)
     
     + Body
     
             {
-                "rooms": [
-                   
-                        "Вечера на хуторе",
-                        "Гавайская вечеринка",
-                        "Ядерная угроза",
-                        "1408"
-                ],
-                "result": 2
+                "room": "palata-6",
+                "bookingDate": "19-01-2017",
+                "bookingHour": "11:10",
+                "price": "500"
             }
             
             
-## Show rooms collection [/api/showinfo/]
+## Отображение состояния забронированных часов в пределах 10 дней от текущей даты. При реализации этой функции нужно учитывать время прекращение возможности бронирования до начала игры.   [/api/showbooking/]
 
-### Show room info request [POST]
+### Show bookingHours [POST]
 
 
 + Attributes
 
-    + url: questium (string, required) 
-    + room: gavajskaja-vecherinka (string, required)
+    + url: zigraymo (string, required) 
+    + room: palata-6 (string, required)
     
 
 + Request (application/x-www-form-urlencoded)
     
-        url=questium&room=gavajskaja-vecherinka
+        url=zigraymo&room=palata
 
 + Response 200 (application/json)
     
     + Body
     
             {
-                "rooms": [
-                   
-                        "Вечера на хуторе",
-                        "Гавайская вечеринка",
-                        "Ядерная угроза",
-                        "1408"
-                ],
-                "result": 2
+                "room": "yadernaya-ugroza",
+                "dateStart": "2016-12-15",
+                "dateEnd": "2017-01-12",
+                "dates": {
+                    "2016-12-15": {
+                        "dateFull": "15.12.2016",
+                        "is_holiday": false,
+                        "date": "2016-12-15",
+                        "times": {
+                            "10:00": {
+                                "time": "10:00:00",
+                                "price": "500",
+                                "is_booked": "1"
+                            },
+                            "11:20": {
+                                "time": "11:20:00",
+                                "price": "500",
+                                "is_booked": "1"
+                            },
+                            "12:40": {
+                                "time": "12:40:00",
+                                "price": "500",
+                                "is_booked": "1"
+                            },
+                            "14:00": {
+                                "time": "14:00:00",
+                                "price": "500",
+                                "is_booked": "1"
+                            },
+                            "15:20": {
+                                "time": "15:20:00",
+                                "price": "500",
+                                "is_booked": "1"
+                            },
+                            "16:40": {
+                                "time": "16:40:00",
+                                "price": "500",
+                                "is_booked": "2"
+                            },
+                            "18:00": {
+                                "time": "18:00:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            },
+                            "19:20": {
+                                "time": "19:20:00",
+                                "price": "600",
+                                "is_booked": "1"
+                            },
+                            "20:40": {
+                                "time": "20:40:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            },
+                            "22:00": {
+                                "time": "22:00:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            },
+                            "23:20": {
+                                "time": "23:20:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            },
+                            "00:40": {
+                                "time": "00:40:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            }
+                        }
+                    },
+                    "2016-12-16": {
+                        "dateFull": "16.12.2016",
+                        "is_holiday": false,
+                        "date": "2016-12-16",
+                        "times": {
+                                "10:00": {
+                                "time": "10:00:00",
+                                "price": "500",
+                                "is_booked": "2"
+                            },
+                            "11:20": {
+                                "time": "11:20:00",
+                                "price": "500",
+                                "is_booked": "2"
+                            },
+                            "12:40": {
+                                "time": "12:40:00",
+                                "price": "500",
+                                "is_booked": "2"
+                            },
+                            "14:00": {
+                                "time": "14:00:00",
+                                "price": "500",
+                                "is_booked": "2"
+                            },
+                            "15:20": {
+                                "time": "15:20:00",
+                                "price": "500",
+                                "is_booked": "2"
+                            },
+                            "16:40": {
+                                "time": "16:40:00",
+                                "price": "500",
+                                "is_booked": "2"
+                            },
+                            "18:00": {
+                                "time": "18:00:00",
+                                "price": "600",
+                                "is_booked": "1"
+                            },
+                            "19:20": {
+                                "time": "19:20:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            },
+                            "20:40": {
+                                "time": "20:40:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            },
+                            "22:00": {
+                                "time": "22:00:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            },
+                            "23:20": {
+                                "time": "23:20:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            },
+                            "00:40": {
+                                "time": "00:40:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            }
+                        }
+                    },
+                    "2016-12-17": {
+                        "dateFull": "17.12.2016",
+                        "is_holiday": true,
+                        "date": "2016-12-17",
+                        "times": {
+                            "10:00": {
+                                "time": "10:00:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            },
+                            "11:20": {
+                                "time": "11:20:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            },
+                            "12:40": {
+                                "time": "12:40:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            },
+                            "14:00": {
+                                "time": "14:00:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            },
+                            "15:20": {
+                                "time": "15:20:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            },
+                            "16:40": {
+                                "time": "16:40:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            },
+                            "18:00": {
+                                "time": "18:00:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            },
+                            "19:20": {
+                                "time": "19:20:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            },
+                            "20:40": {
+                                "time": "20:40:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            },
+                            "22:00": {
+                                "time": "22:00:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            },
+                            "23:20": {
+                                "time": "23:20:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            },
+                            "00:40": {
+                                "time": "00:40:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            }
+                        }
+                    },
+                    "2016-12-18": {
+                        "dateFull": "18.12.2016",
+                        "is_holiday": true,
+                        "date": "2016-12-18",
+                        "times": {
+                            "10:00": {
+                                "time": "10:00:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            },
+                            "11:20": {
+                                "time": "11:20:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            },
+                            "12:40": {
+                                "time": "12:40:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            },
+                            "14:00": {
+                                "time": "14:00:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            },
+                            "15:20": {
+                                "time": "15:20:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            },
+                            "16:40": {
+                                "time": "16:40:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            },
+                            "18:00": {
+                                "time": "18:00:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            },
+                            "19:20": {
+                                "time": "19:20:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            },
+                            "20:40": {
+                                "time": "20:40:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            },
+                            "22:00": {
+                                "time": "22:00:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            },
+                            "23:20": {
+                                "time": "23:20:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            },
+                            "00:40": {
+                                "time": "00:40:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            }
+                        }
+                    },
+                    "2016-12-19": {
+                        "dateFull": "19.12.2016",
+                        "is_holiday": false,
+                        "date": "2016-12-19",
+                        "times": {
+                            "10:00": {
+                                "time": "10:00:00",
+                                "price": "500",
+                                "is_booked": "2"
+                            },
+                            "11:20": {
+                                "time": "11:20:00",
+                                "price": "500",
+                                "is_booked": "2"
+                            },
+                            "12:40": {
+                                "time": "12:40:00",
+                                "price": "500",
+                                "is_booked": "2"
+                            },
+                            "14:00": {
+                                "time": "14:00:00",
+                                "price": "500",
+                                "is_booked": "2"
+                            },
+                            "15:20": {
+                                "time": "15:20:00",
+                                "price": "500",
+                                "is_booked": "2"
+                            },
+                            "16:40": {
+                                "time": "16:40:00",
+                                "price": "500",
+                                "is_booked": "2"
+                            },
+                            "18:00": {
+                                "time": "18:00:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            },
+                            "19:20": {
+                                "time": "19:20:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            },
+                            "20:40": {
+                                "time": "20:40:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            },
+                            "22:00": {
+                                "time": "22:00:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            },
+                            "23:20": {
+                                "time": "23:20:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            },
+                            "00:40": {
+                                "time": "00:40:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            }
+                        }
+                    },
+                    "2016-12-20": {
+                        "dateFull": "20.12.2016",
+                        "is_holiday": false,
+                        "date": "2016-12-20",
+                        "times": {
+                            "10:00": {
+                                "time": "10:00:00",
+                                "price": "500",
+                                "is_booked": "2"
+                            },
+                            "11:20": {
+                                "time": "11:20:00",
+                                "price": "500",
+                                "is_booked": "2"
+                            },
+                            "12:40": {
+                                "time": "12:40:00",
+                                "price": "500",
+                                "is_booked": "2"
+                            },
+                            "14:00": {
+                                "time": "14:00:00",
+                                "price": "500",
+                                "is_booked": "2"
+                            },
+                            "15:20": {
+                                "time": "15:20:00",
+                                "price": "500",
+                                "is_booked": "2"
+                            },
+                            "16:40": {
+                                "time": "16:40:00",
+                                "price": "500",
+                                "is_booked": "2"
+                            },
+                            "18:00": {
+                                "time": "18:00:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            },
+                            "19:20": {
+                                "time": "19:20:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            },
+                            "20:40": {
+                                "time": "20:40:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            },
+                            "22:00": {
+                                "time": "22:00:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            },
+                            "23:20": {
+                                "time": "23:20:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            },
+                            "00:40": {
+                                "time": "00:40:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            }
+                        }
+                    },
+                    "2016-12-21": {
+                        "dateFull": "21.12.2016",
+                        "is_holiday": false,
+                        "date": "2016-12-21",
+                        "times": {
+                            "10:00": {
+                                "time": "10:00:00",
+                                "price": "500",
+                                "is_booked": "2"
+                            },
+                            "11:20": {
+                                "time": "11:20:00",
+                                "price": "500",
+                                "is_booked": "2"
+                            },
+                            "12:40": {
+                                "time": "12:40:00",
+                                "price": "500",
+                                "is_booked": "2"
+                            },
+                            "14:00": {
+                                "time": "14:00:00",
+                                "price": "500",
+                                "is_booked": "2"
+                            },
+                            "15:20": {
+                                "time": "15:20:00",
+                                "price": "500",
+                                "is_booked": "2"
+                            },
+                            "16:40": {
+                                "time": "16:40:00",
+                                "price": "500",
+                                "is_booked": "2"
+                            },
+                            "18:00": {
+                                "time": "18:00:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            },
+                            "19:20": {
+                                "time": "19:20:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            },
+                            "20:40": {
+                                "time": "20:40:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            },
+                            "22:00": {
+                                "time": "22:00:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            },
+                            "23:20": {
+                                "time": "23:20:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            },
+                            "00:40": {
+                                "time": "00:40:00",
+                                "price": "600",
+                                "is_booked": "2"
+                            }
+                        }
+                    }
+                }
             }
             
-## Show rooms collection [/api/showday/]
 
-### Show day request [POST]
+## Бронирование комнаты на других сайтах [/api/booking/]
+
+### Booking room [POST]
 
 
 + Attributes
 
-    + url: questium (string, required) 
-    + room: gavajskaja-vecherinka (string, required)
-    + date: 2016-11-15 (string, required)
+    + room: palata-6 (string, required)
+    + date: 19-01-2017 (string, required)
+    + time: 11:10 (string, required)
+    + phone: 38XXXYYYYYYY (string, required)
+    + comment: test (string, required)
 
 + Request (application/x-www-form-urlencoded)
     
-        url=questium&room=gavajskaja-vecherinka&date=2016-11-15
+        room=palata-6&date=19-01-2017&time=11:10&phone=38XXXYYYYYYY&comment=test
 
 + Response 200 (application/json)
     
     + Body
     
             {
-                "rooms": [
-                   
-                        "Вечера на хуторе",
-                        "Гавайская вечеринка",
-                        "Ядерная угроза",
-                        "1408"
-                ],
-                "result": 2
-            }            
-
-## Show rooms collection [/api/showhour/]
-
-### Show room hour request [POST]
-
-
-+ Attributes
-
-    + url: questium (string, required) 
-    + room: gavajskaja-vecherinka (string, required)
-    + date: 2016-11-15 (string, required)
-    + time: 15:00 (string, required)
-
-+ Request (application/x-www-form-urlencoded)
-    
-        url=questium&room=gavajskaja-vecherinka&date=2016-11-15&time=15:00
-
-+ Response 200 (application/json)
-    
-    + Body
-    
-            {
-                "rooms": [
-                   
-                        "Вечера на хуторе",
-                        "Гавайская вечеринка",
-                        "Ядерная угроза",
-                        "1408"
-                ],
-                "result": 2
-            }            
-            
-## Show rooms collection [/api/showbooking/]
-
-### Show room booking request [POST]
-
-
-+ Attributes
-
-    + url: questium (string, required) 
-    + room: gavajskaja-vecherinka (string, required)
-
-+ Request (application/x-www-form-urlencoded)
-    
-        url=questium&room=gavajskaja-vecherinka
-
-+ Response 200 (application/json)
-    
-    + Body
-    
-            {
-                "rooms": [
-                   
-                        "Вечера на хуторе",
-                        "Гавайская вечеринка",
-                        "Ядерная угроза",
-                        "1408"
-                ],
-                "result": 2
-            } 
-            
-## Show rooms collection [/api/bookinghour/]
-
-### Create booking request [POST]
-
-
-+ Attributes
-
-    + url: questium (string, required) 
-    + room: gavajskaja-vecherinka (string, required)
-    + date: 2016-11-15 (string, required)
-    + time: 15:00 (string, required)
-
-+ Request (application/x-www-form-urlencoded)
-    
-        url=questium&room=gavajskaja-vecherinka&date=2016-11-15&time=15:00
-
-+ Response 200 (application/json)
-    
-    + Body
-    
-            {
-                "rooms": [
-                   
-                        "Вечера на хуторе",
-                        "Гавайская вечеринка",
-                        "Ядерная угроза",
-                        "1408"
-                ],
-                "result": 2
+                "room": "palata-6",
+                "bookingDate": "19-01-2017",
+                "bookingHour": "11:10",
+                "price": "500"
             }
